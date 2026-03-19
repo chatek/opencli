@@ -37,6 +37,15 @@ export class Page implements IPage {
     }
   }
 
+  /** Close the automation window in the extension */
+  async closeWindow(): Promise<void> {
+    try {
+      await sendCommand('close-window', {});
+    } catch {
+      // Window may already be closed or daemon may be down
+    }
+  }
+
   async evaluate(js: string): Promise<any> {
     const code = wrapForEval(js);
     return sendCommand('exec', { code, ...this._tabOpt() });

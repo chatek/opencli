@@ -219,6 +219,7 @@ async function handleCommand(cmd) {
 			case "tabs": return await handleTabs(cmd);
 			case "cookies": return await handleCookies(cmd);
 			case "screenshot": return await handleScreenshot(cmd);
+			case "close-window": return await handleCloseWindow(cmd);
 			default: return {
 				id: cmd.id,
 				ok: false,
@@ -446,5 +447,18 @@ async function handleScreenshot(cmd) {
 			error: err instanceof Error ? err.message : String(err)
 		};
 	}
+}
+async function handleCloseWindow(cmd) {
+	if (automationWindowId !== null) {
+		try {
+			await chrome.windows.remove(automationWindowId);
+		} catch {}
+		automationWindowId = null;
+	}
+	return {
+		id: cmd.id,
+		ok: true,
+		data: { closed: true }
+	};
 }
 //#endregion

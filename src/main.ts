@@ -193,12 +193,6 @@ for (const [, cmd] of registry) {
       let result: any;
       if (cmd.browser) {
         result = await browserSession(BrowserBridge, async (page) => {
-          // Cookie/header strategies require same-origin context for credentialed fetch.
-          // In CDP mode the active tab may be on an unrelated domain, causing CORS failures.
-          // Navigate to the command's domain first (mirrors cascade command behavior).
-          if ((cmd.strategy === Strategy.COOKIE || cmd.strategy === Strategy.HEADER) && cmd.domain) {
-            try { await page.goto(`https://${cmd.domain}`); await page.wait(2); } catch {}
-          }
           return runWithTimeout(executeCommand(cmd, page, kwargs, actionOpts.verbose), { timeout: cmd.timeoutSeconds ?? DEFAULT_BROWSER_COMMAND_TIMEOUT, label: fullName(cmd) });
         });
       } else { result = await executeCommand(cmd, null, kwargs, actionOpts.verbose); }

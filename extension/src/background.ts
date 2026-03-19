@@ -165,6 +165,8 @@ async function handleCommand(cmd: Command): Promise<Result> {
         return await handleCookies(cmd);
       case 'screenshot':
         return await handleScreenshot(cmd);
+      case 'close-window':
+        return await handleCloseWindow(cmd);
       default:
         return { id: cmd.id, ok: false, error: `Unknown action: ${cmd.action}` };
     }
@@ -331,4 +333,16 @@ async function handleScreenshot(cmd: Command): Promise<Result> {
   } catch (err) {
     return { id: cmd.id, ok: false, error: err instanceof Error ? err.message : String(err) };
   }
+}
+
+async function handleCloseWindow(cmd: Command): Promise<Result> {
+  if (automationWindowId !== null) {
+    try {
+      await chrome.windows.remove(automationWindowId);
+    } catch {
+      // Window may already be closed
+    }
+    automationWindowId = null;
+  }
+  return { id: cmd.id, ok: true, data: { closed: true } };
 }
