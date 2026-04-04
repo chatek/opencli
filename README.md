@@ -129,6 +129,7 @@ git clone git@github.com:jackwener/opencli.git && cd opencli && npm install && n
 | **twitter** | `trending` `search` `timeline` `bookmarks` `post` `download` `profile` `article` `like` `likes` `notifications` `reply` `reply-dm` `thread` `follow` `unfollow` `followers` `following` `block` `unblock` `bookmark` `unbookmark` `delete` `hide-reply` `accept` |
 | **reddit** | `hot` `frontpage` `popular` `search` `subreddit` `user` `user-posts` `user-comments` `read` `save` `saved` `subscribe` `upvote` `upvoted` `comment` |
 | **amazon** | `bestsellers` `search` `product` `offer` `discussion` |
+| **1688** | `search` `item` `store` |
 | **gemini** | `new` `ask` `image` |
 | **yuanbao** | `new` `ask` |
 | **notebooklm** | `status` `list` `open` `select` `current` `get` `metadata` `source-list` `source-get` `source-fulltext` `source-guide` `history` `note-list` `notes-list` `notes-get` `summary` |
